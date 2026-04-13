@@ -1,5 +1,9 @@
 // Events Data - Easy to add new events!
 // Just add a new object to the appropriate category array
+//
+// Optional gallery: add `additionalPhotos` with public URL paths (files must live under `public/`).
+// Example: additionalPhotos: ["/my-event-photos/photo1.jpg", "/my-event-photos/photo2.png"]
+// Encode spaces as %20, parentheses as %28 and %29, etc., so next/image resolves correctly.
 
 export interface Event {
   id: string; // Unique identifier for the event (used in URL)
@@ -8,23 +12,86 @@ export interface Event {
   image: string; // Path to the event flier/image
   description: string; // Full description for the event page
   shortDescription?: string; // Optional short description for listings
+  /** Public paths (/folder/file.jpg) for the Additional Photos grid on the event page */
+  additionalPhotos?: string[];
 }
+
+const lunar2024Photos = [
+  "/2024lunar/2.jpg",
+  "/2024lunar/3.jpg",
+  "/2024lunar/4.jpg",
+  "/2024lunar/5.jpg",
+  "/2024lunar/6.jpg",
+  "/2024lunar/7.jpg",
+  "/2024lunar/8.jpg",
+  "/2024lunar/9.jpg",
+  "/2024lunar/LNY%202024.jpg",
+  "/2024lunar/door.jpg",
+  "/2024lunar/food.jpg",
+  "/2024lunar/group%20photo.jpg",
+  "/2024lunar/Screenshot%202026-04-12%20104959.png",
+  "/2024lunar/Screenshot%202026-04-12%20105014.png",
+] as const;
+
+const lunar2025Photos = [
+  "/2025lunar/2025%20lunar%20new%20year%20host.jpg",
+  "/2025lunar/2025%20host.jpg",
+  "/2025lunar/performance.jpeg",
+  "/2025lunar/chang.jpg",
+  "/2025lunar/flyer.png",
+  "/2025lunar/2025%20lunar%20new%20year%20photo%20combined.jpg",
+  "/2025lunar/2025%20-6.jpg",
+  "/2025lunar/Copy%20of%20program%201.jpg",
+  "/2025lunar/2025%20Lunar%20new%20year%20food.jpg",
+  "/2025lunar/2025%20lunar%20new%20year%20concert%20check%20in.jpg",
+  "/2025lunar/2025%20concert%20check%20in.jpg",
+  "/2025lunar/program%201.jpg",
+  "/2025lunar/program%202.jpg",
+  "/2025lunar/deco.jpeg",
+  "/2025lunar/2025%20concert%20food.jpg",
+  "/2025lunar/2025%20concert.jpg",
+  "/2025lunar/2025%20lunar%20new%20year%20group%20%281%29.jpeg",
+  "/2025lunar/church.jpg",
+] as const;
 
 // Lunar New Year Youth Concert Events
 export const lunarNewYearEvents: Event[] = [
   {
     id: "lunar-new-year-2024",
-    title: "Lunar New Year Youth Concert 2024",
+    title: "Spring Festival Melodies: A Youth Music Concert",
     date: "February 3, 2024",
     image: "/lunar1.png",
-    description: "Lunar New Year concert celebrating the arrival of the new year through youth music performances. The event invites the community to enjoy live music and a shared cultural atmosphere. Performances run from 3:00–5:00 PM, followed by a potluck from 5:00–6:30 PM, encouraging audience participation and community bonding.\n\nThe concert features youth performers and is held at Park Ridge Community Church, 3805 Maltby Rd, Bothell, WA 98012. Admission has a $5 fee. The event is organized by Harmony Association for Youth (HAY), with sponsorship support from Light Learning Academy.",
+    additionalPhotos: [...lunar2024Photos],
+    description: `HAY Youth presented "Spring Festival Melodies," a Lunar New Year youth concert celebrating the arrival of the new year. The event brought the community together to enjoy live music, traditional food, and a vibrant cultural atmosphere.
+
+Lunar New Year is an important tradition across many Asian countries. For families in our community, it is a meaningful time of celebration. HAY Youth organized this concert to help new immigrants feel at home and connect with others who share their cultural heritage, while also showcasing traditional music to the wider community.
+
+The event featured a variety of activities, including:
+Traditional decorations: Creating a festive setting.
+Cultural activities: Balloon making and traditional writing.
+Fundraising Table: Supporting future HAY Youth initiatives.
+Youth Jewelry Sale: Talented young artists selling their creations, with proceeds benefiting HAY Fund sales.
+Shared traditional foods: Enhanced the celebration.
+Involvement from youth volunteers, demonstrating leadership and dedication.
+Traditional gifts presented to performers in appreciation of their contributions.
+
+The concert was a great success, featuring 26 performances and welcoming over 100 attendees. It was a memorable celebration for all. We sincerely thank Light Learning Academy and other supporting organizations for their invaluable support.`,
   },
   {
     id: "lunar-new-year-2025",
-    title: "Spring's Musical Chapter - Lunar New Year 2025",
+    title: "2025 HAY Youth New Year Concert",
     date: "January 25, 2025",
     image: "/lunar2.png",
-    description: "This poster advertises a 2025 Lunar New Year youth concert titled \"Spring's Musical Chapter.\" The event focuses on welcoming the new year through music, food, and shared celebration. Youth performers present a concert from 3:00–5:00 PM, followed by a community potluck from 5:00–6:30 PM, highlighting togetherness and cultural appreciation.\n\nThe concert takes place at Park Ridge Community Church, 3805 Maltby Rd, Bothell, WA 98012. A suggested fee of $5 is listed. The event is hosted by the Harmony Association for Youth (HAY) and emphasizes celebrating Lunar New Year with music, good food, and community.",
+    additionalPhotos: [...lunar2025Photos],
+    description: `In the Year of the Snake, 2025, HAY Youth presented its annual Lunar New Year's Youth Concert—an event that celebrated both the musical talent of young performers and the dedication of youth volunteers who made the evening possible.
+
+The concert brought together young musicians from diverse cultural backgrounds, each delivering thoughtfully prepared performances. From the dynamic energy of the piano and the graceful melodies of the violin to the bright tones of the flute and the distinctive sound of the Hulusi, every instrument added its own unique color. Together, these performances showcased not only technical skill, but also deep musical expression.
+
+Music is more than an art form—it is a bridge that connects people and strengthens community bonds. This concert served as a meaningful platform for cultural exchange and shared appreciation.
+
+Youth volunteers worked diligently to ensure the event's success. From early planning to on-site coordination, audience guidance, and maintaining operations, the concert relied on strong teamwork and effective communication.
+
+More than just a performance, this event was an enriching experience of growth. Performers and volunteers gained valuable lessons in teamwork, communication, and responsibility—making the 2025 New Year's Concert a truly memorable milestone for everyone involved.`,
   },
 ];
 
@@ -50,4 +117,3 @@ export const familyTiesEvents: Event[] = [
 export const youthMelodyEvents: Event[] = [
   // Add events here following the same format
 ];
-

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/sections/nav";
 import Footer from "@/components/sections/footer";
 import { lunarNewYearEvents, familyTiesEvents, youthMelodyEvents } from "../../eventsData";
+import EventAdditionalPhotos from "@/components/events/EventAdditionalPhotos";
 
 // Combine all events
 const allEvents = [...lunarNewYearEvents, ...familyTiesEvents, ...youthMelodyEvents];
@@ -76,13 +77,20 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
                   <div className="prose prose-lg max-w-none">
                     {event.description.split('\n\n').map((paragraph, idx) => (
-                      <p key={idx} className="text-base text-blue-900/80 leading-relaxed mb-4">
+                      <p
+                        key={idx}
+                        className="text-base text-blue-900/80 leading-relaxed mb-4 whitespace-pre-line"
+                      >
                         {paragraph}
                       </p>
                     ))}
                   </div>
                 </div>
               </div>
+
+              {event.additionalPhotos && event.additionalPhotos.length > 0 && (
+                <EventAdditionalPhotos images={event.additionalPhotos} />
+              )}
             </div>
           </div>
         </div>
