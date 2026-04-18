@@ -61,6 +61,11 @@ const lunar2025Photos = [
 
 const lunar2025ProgramPhotos = ["/2025lunar/program%201.jpg", "/2025lunar/program%202.jpg"] as const;
 
+const mothersDay2024CarouselPhotos = [
+  "/mothersday/Screenshot%202026-04-18%20113803.png",
+  "/mothersday/Screenshot%202026-04-18%20113812.png",
+] as const;
+
 // Lunar New Year Youth Concert Events — newest first (left in the grid) when you append new years
 export const lunarNewYearEvents: Event[] = [
   {
@@ -111,7 +116,10 @@ export const familyTiesEvents: Event[] = [
     title: "Mother's Day Concert - Love in the Heart",
     date: "May 12, 2024",
     image: "/family1.png",
-    description: "This poster advertises a Mother's Day concert organized by the Harmony Association for Youth (HAY). The theme centers on expressing love and gratitude through music, with youth performers dedicating performances to their mothers and receiving flowers in return.\n\nThe concert runs from 3:00–5:00 PM and features all youth performers. The suggested fee is $5. The event takes place at 1717 Bothell Way NE, Lake Forest Park, WA 98155. The overall focus is on celebrating Mother's Day through heartfelt musical performances and family appreciation.",
+    programPhotos: [...mothersDay2024CarouselPhotos],
+    description: `On May 12, 2024, Mother's Day, a day filled with gratitude and love, HAY Youth presented "Love in the Heart, a special Mother's Day concert". We invited young performers to use music as a bridge to express their heartfelt appreciation and love for their mothers.
+
+This event was more than a concert—it was a meaningful moment of connection and gratitude. On stage, the youth shared their emotions through music, conveying deep love and thankfulness; off stage, every mother felt immense pride and joy in witnessing their children's growth and dedication. At the conclusion of the event, each performer presented a bouquet of flowers to their mother, allowing warmth and happiness to flow quietly in that unforgettable moment. Love in the Heart was not merely a musical performance, but a touching expression of gratitude and respect for maternal love, shared through the voices and hearts of the next generation.`,
   },
   {
     id: "fathers-day-concert-2025",
