@@ -5,11 +5,20 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Nav from "@/components/sections/nav";
 import Footer from "@/components/sections/footer";
-import { lunarNewYearEvents, familyTiesEvents, youthMelodyEvents } from "../../eventsData";
+import { lunarNewYearEvents, familyTiesEvents, youthMelodyEvents, type Event } from "../../eventsData";
 import EventAdditionalPhotos from "@/components/events/EventAdditionalPhotos";
+import EventAdditionalVideos from "@/components/events/EventAdditionalVideos";
+import EventHeroCarousel from "@/components/events/EventHeroCarousel";
 
 // Combine all events
 const allEvents = [...lunarNewYearEvents, ...familyTiesEvents, ...youthMelodyEvents];
+
+function galleryImagesForEvent(event: Event): string[] | undefined {
+  if (!event.additionalPhotos?.length) return undefined;
+  const skip = new Set(event.programPhotos ?? []);
+  const filtered = event.additionalPhotos.filter((src) => !skip.has(src));
+  return filtered.length > 0 ? filtered : undefined;
+}
 
 export default function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -18,6 +27,8 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
   if (!event) {
     notFound();
   }
+
+  const gallery = galleryImagesForEvent(event);
 
   return (
     <div className="font-sans flex-col flex w-screen relative scroll-smooth overflow-x-hidden">
@@ -49,18 +60,25 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
             {/* Event Content */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 sm:p-12 border border-white/20 shadow-lg">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Left: Event Flier */}
-                <div className="flex items-start justify-center">
-                  <div className="relative w-full max-w-md">
-                    <Image
-                      src={event.image}
-                      alt={event.title}
-                      width={600}
-                      height={800}
-                      className="w-full h-auto rounded-xl shadow-lg"
-                      priority
+                {/* Left: poster + program carousel */}
+                <div className="flex items-start justify-center lg:justify-start">
+                  {event.programPhotos && event.programPhotos.length > 0 ? (
+                    <EventHeroCarousel
+                      title={event.title}
+                      slides={[event.image, ...event.programPhotos]}
                     />
-                  </div>
+                  ) : (
+                    <div className="relative w-full max-w-md">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        width={600}
+                        height={800}
+                        className="w-full h-auto rounded-xl shadow-lg"
+                        priority
+                      />
+                    </div>
+                  )}
                 </div>
 
                 {/* Right: Event Details */}
@@ -88,8 +106,9 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
                 </div>
               </div>
 
-              {event.additionalPhotos && event.additionalPhotos.length > 0 && (
-                <EventAdditionalPhotos images={event.additionalPhotos} />
+              {gallery && <EventAdditionalPhotos images={gallery} />}
+              {event.additionalVideos && event.additionalVideos.length > 0 && (
+                <EventAdditionalVideos videos={event.additionalVideos} />
               )}
             </div>
           </div>

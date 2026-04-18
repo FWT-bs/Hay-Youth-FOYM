@@ -9,6 +9,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import EventGalleryCarousel, { PAGE_SIZE } from "./EventGalleryCarousel";
 
 type EventAdditionalPhotosProps = {
   images: string[];
@@ -19,7 +20,14 @@ export default function EventAdditionalPhotos({
   images,
   heading = "Additional Photos",
 }: EventAdditionalPhotosProps) {
+  const [page, setPage] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const pageCount = Math.ceil(images.length / PAGE_SIZE);
+
+  useEffect(() => {
+    setPage((p) => Math.min(p, Math.max(0, pageCount - 1)));
+  }, [images.length, pageCount]);
 
   const close = useCallback(() => setLightboxIndex(null), []);
 
@@ -59,33 +67,49 @@ export default function EventAdditionalPhotos({
   const open = lightboxIndex !== null;
   const activeSrc = lightboxIndex !== null ? images[lightboxIndex] : null;
 
+  const start = page * PAGE_SIZE;
+  const slice = images.slice(start, start + PAGE_SIZE);
+
+  const pageLabel = `${page + 1} / ${pageCount}`;
+
   return (
     <section className="mt-12 pt-10 border-t border-blue-950/10">
       <h2 className="text-3xl font-semibold text-blue-950 text-left mb-6">
         {heading}
       </h2>
-      <ul className="grid list-none grid-cols-2 gap-3 p-0 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
-        {images.map((src, i) => (
-          <li key={`${src}-${i}`} className="flex justify-center">
-            <button
-              type="button"
-              onClick={() => setLightboxIndex(i)}
-              className="group relative h-[min(220px,42vw)] w-full max-w-[280px] cursor-zoom-in rounded-xl bg-blue-50/80 ring-1 ring-blue-950/10 transition-shadow hover:ring-2 hover:ring-blue-950/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-950 focus-visible:ring-offset-2"
-              aria-label={`View photo ${i + 1} of ${images.length} full size`}
-            >
-              <Image
-                src={src}
-                alt=""
-                fill
-                quality={90}
-                className="object-contain object-center p-1.5 rounded-lg pointer-events-none"
-                sizes="(max-width: 768px) 45vw, (max-width: 1280px) 30vw, 280px"
-                priority={i < 4}
-              />
-            </button>
-          </li>
-        ))}
-      </ul>
+      <EventGalleryCarousel
+        page={page}
+        pageCount={pageCount}
+        onPrevPage={() => setPage((p) => Math.max(0, p - 1))}
+        onNextPage={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
+        pageLabel={pageLabel}
+      >
+        <ul className="grid list-none grid-cols-4 gap-2 p-0 sm:gap-4">
+          {slice.map((src, localIdx) => {
+            const globalIdx = start + localIdx;
+            return (
+              <li key={`${src}-${globalIdx}`} className="flex min-w-0 justify-center">
+                <button
+                  type="button"
+                  onClick={() => setLightboxIndex(globalIdx)}
+                  className="group relative aspect-[3/4] w-full max-w-[280px] cursor-zoom-in rounded-xl bg-blue-50/80 ring-1 ring-blue-950/10 transition-shadow hover:ring-2 hover:ring-blue-950/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-950 focus-visible:ring-offset-2"
+                  aria-label={`View photo ${globalIdx + 1} of ${images.length} full size`}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    quality={90}
+                    className="object-contain object-center p-1.5 rounded-lg pointer-events-none"
+                    sizes="(max-width: 640px) 23vw, (max-width: 1280px) 22vw, 280px"
+                    priority={globalIdx < 4}
+                  />
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </EventGalleryCarousel>
 
       <Dialog open={open} onClose={close} className="relative z-[100]">
         <DialogBackdrop
