@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Original source photo folders (site uses the /public/ copies)
+/2024lunar/
+/2025lunar/
+/2026lunar/
+/motherdsday/
+/2024 Mother_s day/

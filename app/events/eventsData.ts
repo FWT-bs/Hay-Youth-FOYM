@@ -61,13 +61,70 @@ const lunar2025Photos = [
 
 const lunar2025ProgramPhotos = ["/2025lunar/program%201.jpg", "/2025lunar/program%202.jpg"] as const;
 
+const lunar2026HeroScreenshots = [
+  "/2026lunar/Screenshot%202026-04-20%20182224.png",
+  "/2026lunar/Screenshot%202026-04-20%20182234.png",
+  "/2026lunar/Screenshot%202026-04-20%20182247.png",
+] as const;
+
+/** All photos in `public/2026lunar/2026 Lunar New Year/` (hero screenshots excluded — they live at folder root) */
+const lunar2026AdditionalPhotos = [
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6098.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6185.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6262.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6276.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6281.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6344.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6399.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6409.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/DZ8_6430.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419162645_37_1.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419162653_38_1.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419162703_40_1.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419162710_41_1.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419162722_42_1.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419162728_43_1.jpg",
+  "/2026lunar/2026%20Lunar%20New%20Year/Image_20260419163103_50_1.jpg",
+] as const;
+
 const mothersDay2024CarouselPhotos = [
   "/mothersday/Screenshot%202026-04-18%20113803.png",
   "/mothersday/Screenshot%202026-04-18%20113812.png",
 ] as const;
 
+const mothersDay2024AdditionalPhotos = [
+  "/mothersday2024/photo-1.jpg",
+  "/mothersday2024/photo-2.jpg",
+  "/mothersday2024/photo-3.jpg",
+  "/mothersday2024/photo-4.jpg",
+  "/mothersday2024/photo-5.jpg",
+  "/mothersday2024/photo-6.jpg",
+  "/mothersday2024/photo-7.jpg",
+] as const;
+
 // Lunar New Year Youth Concert Events — newest first (left in the grid) when you append new years
 export const lunarNewYearEvents: Event[] = [
+  {
+    id: "lunar-new-year-2026",
+    title: "2026 Youth Music and Tradition Night",
+    date: "January 31, 2026",
+    image: lunar2026HeroScreenshots[0],
+    programPhotos: [lunar2026HeroScreenshots[1], lunar2026HeroScreenshots[2]],
+    additionalPhotos: [...lunar2026AdditionalPhotos],
+    description: `2026 Youth Music and Tradition Night
+
+The "2026 Youth Music and Tradition Night," hosted by HAY Youth, was a joyful celebration welcoming the Lunar New Year with music, cultural presentations, and community spirit.
+
+The evening featured wonderful performances by talented young members of the community, whose music filled the space with a rich festive atmosphere. 🎆🎆 From classical pieces to traditional Chinese music and cultural presentations, the program brought cherished memories of the Lunar New Year and created a sense of warmth and familiarity for the community.
+
+For many living far from their homeland, the event fostered a meaningful sense of connection. ❤️❤️
+
+Following the performances, the celebration continued with a lively potluck gathering. Community members shared a variety of traditional foods and exchanged festive greetings, further strengthening the sense of togetherness.
+
+The event also offered engaging cultural activities, including Chinese calligraphy and photo opportunities with a traditional-themed backdrop. A youth-organized fundraising table was also hosted by HAY Youth.
+
+We extend our sincere thanks to all the youth volunteers whose dedication and hard work made this event possible. Their efforts in planning, organizing, and contributing brought the celebration to life and made it truly memorable for everyone involved.`,
+  },
   {
     id: "lunar-new-year-2025",
     title: "2025 HAY Youth New Year Concert",
@@ -117,6 +174,7 @@ export const familyTiesEvents: Event[] = [
     date: "May 12, 2024",
     image: "/family1.png",
     programPhotos: [...mothersDay2024CarouselPhotos],
+    additionalPhotos: [...mothersDay2024AdditionalPhotos],
     description: `On May 12, 2024, Mother's Day, a day filled with gratitude and love, HAY Youth presented "Love in the Heart, a special Mother's Day concert". We invited young performers to use music as a bridge to express their heartfelt appreciation and love for their mothers.
 
 This event was more than a concert—it was a meaningful moment of connection and gratitude. On stage, the youth shared their emotions through music, conveying deep love and thankfulness; off stage, every mother felt immense pride and joy in witnessing their children's growth and dedication. At the conclusion of the event, each performer presented a bouquet of flowers to their mother, allowing warmth and happiness to flow quietly in that unforgettable moment. Love in the Heart was not merely a musical performance, but a touching expression of gratitude and respect for maternal love, shared through the voices and hearts of the next generation.`,
